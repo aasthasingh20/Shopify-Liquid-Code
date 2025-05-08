@@ -1,0 +1,37 @@
+<div class="product-card">
+  <!-- Existing product card code -->
+  
+  <div class="product-badges">
+    {% if product.price < 50000 %} <!-- Prices are in cents (₹500 = 50000) -->
+      <span class="badge budget-pick">Budget Pick</span>
+    {% endif %}
+    
+    {% if product.variants.first.inventory_quantity < 5 and product.variants.first.inventory_quantity > 0 %}
+      <span class="badge limited-stock">Limited Stock</span>
+    {% endif %}
+  </div>
+
+  <style>
+    .product-badges {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    .budget-pick {
+      background-color: #4CAF50;
+    }
+    .limited-stock {
+      background-color: #F44336;
+    }
+  </style>
+</div>

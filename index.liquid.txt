@@ -1,0 +1,25 @@
+<div class="personalized-greeting">
+  {% assign current_hour = "now" | date: "%H" | plus: 0 %}
+  
+  {% if current_hour < 12 %}
+    <h2>Good Morning, Shopper!</h2>
+  {% elsif current_hour < 18 %}
+    <h2>Good Afternoon, Shopper!</h2>
+  {% else %}
+    <h2>Good Evening, Shopper!</h2>
+  {% endif %}
+</div>
+
+<style>
+  .personalized-greeting {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    margin-bottom: 30px;
+    border-radius: 8px;
+  }
+  .personalized-greeting h2 {
+    color: #333;
+    margin: 0;
+  }
+</style>

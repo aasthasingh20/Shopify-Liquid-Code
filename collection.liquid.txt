@@ -1,0 +1,50 @@
+<div class="collection-filter">
+  <label for="tag-filter">Filter by Tag:</label>
+  <select id="tag-filter" onchange="filterByTag(this.value)">
+    <option value="">All Products</option>
+    <option value="best-seller">Best Sellers</option>
+    <option value="new-arrival">New Arrivals</option>
+    <option value="discounted">Discounted</option>
+  </select>
+</div>
+
+<!-- Existing collection grid -->
+<div class="product-grid">
+  {% for product in collection.products %}
+    {% if product.tags contains current_tag or current_tag == blank %}
+      {% render 'product-card', product: product %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+<script>
+  function filterByTag(tag) {
+    const url = new URL(window.location.href);
+    if (tag) {
+      url.searchParams.set('filter', tag);
+    } else {
+      url.searchParams.delete('filter');
+    }
+    window.location.href = url.toString();
+  }
+
+  // Get current filter from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentTag = urlParams.get('filter');
+  if (currentTag) {
+    document.getElementById('tag-filter').value = currentTag;
+  }
+</script>
+
+<style>
+  .collection-filter {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+  }
+  #tag-filter {
+    margin-left: 10px;
+    padding: 5px;
+  }
+</style>

@@ -1,0 +1,63 @@
+<div class="cart-upsell">
+  {% assign cart_total = cart.total_price %}
+  
+  {% if cart_total < 100000 %} <!-- ₹1000 = 100000 cents -->
+    {% assign upsell_product = collections['Accessories'].products.first %}
+    <h3>Complete Your Look!</h3>
+    <p>Add this accessory to your order:</p>
+    <div class="upsell-product">
+      <a href="{{ upsell_product.url }}">
+        <img src="{{ upsell_product.featured_image | img_url: 'medium' }}" alt="{{ upsell_product.title }}">
+        <p>{{ upsell_product.title }}</p>
+        <p>{{ upsell_product.price | money }}</p>
+      </a>
+    </div>
+  {% else %}
+    {% assign upsell_product = collections['Premium'].products.first %}
+    <h3>Upgrade Your Experience!</h3>
+    <p>Consider adding this premium item:</p>
+    <div class="upsell-product">
+      <a href="{{ upsell_product.url }}">
+        <img src="{{ upsell_product.featured_image | img_url: 'medium' }}" alt="{{ upsell_product.title }}">
+        <p>{{ upsell_product.title }}</p>
+        <p>{{ upsell_product.price | money }}</p>
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Bonus Task: Buy More, Save More -->
+<div class="shipping-message">
+  {% if cart_total < 50000 %} <!-- ₹500 = 50000 cents -->
+    <p>Spend {{ 50000 | minus: cart_total | money }} more to get free shipping!</p>
+  {% else %}
+    <p>You've unlocked free shipping!</p>
+  {% endif %}
+</div>
+
+<style>
+  .cart-upsell {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  .upsell-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+  .upsell-product img {
+    max-width: 150px;
+    height: auto;
+  }
+  .shipping-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e8f5e9;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
