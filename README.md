@@ -1,4 +1,4 @@
-# Shopify-Liquid-Code
+# Shopify-Liquid-Code version 2
 
 # Shopify Liquid Coding Assignment
 
