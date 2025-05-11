@@ -1,0 +1,55 @@
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View all' button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="featured-collection-section">
+  <h2 class="section-title">{{ section.settings.title }}</h2>
+  
+  {%- assign collection = collections[section.settings.collection] -%}
+  
+  <div class="product-grid">
+    {% for product in collection.products limit: section.settings.product_limit %}
+      {% include 'product-card', product: product %}
+    {% endfor %}
+  </div>
+  
+  {% if section.settings.show_view_all %}
+    <a href="{{ collection.url }}" class="button view-all">View All</a>
+  {% endif %}
+</div>

@@ -1,0 +1,28 @@
+{% paginate collections.all.products by 12 %}
+  <div class="product-grid">
+    {% for product in collections.all.products %}
+      <div class="product-item">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.featured_image.alt }}">
+          <h3>{{ product.title }}</h3>
+          <p>{{ product.price | money }}</p>
+          
+          {% if product.compare_at_price > product.price %}
+            <p class="sale-badge">On Sale!</p>
+            <p class="compare-price">{{ product.compare_at_price | money }}</p>
+          {% endif %}
+          
+          {% unless product.available %}
+            <p class="sold-out">Sold Out</p>
+          {% endunless %}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  
+  {% if paginate.pages > 1 %}
+    <div class="pagination">
+      {{ paginate | default_pagination }}
+    </div>
+  {% endif %}
+{% endpaginate %}
